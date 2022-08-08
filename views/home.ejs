@@ -18,7 +18,9 @@
                     <%= kindOfDay %>
                 </h2><span class="date-day">
                     <%= Date %>
-                </span><i class="location-icon" data-feather="map-pin"></i><span class="location"><%= City %>, <%= Country %></span>
+                </span><i class="location-icon" data-feather="map-pin"></i><span class="location">
+                    <%= City %>, <%= Country %>
+                </span>
             </div>
             <div class="weather-container"><i class="weather-icon" data-feather="sun"></i>
                 <h1 class="weather-temp">
@@ -67,6 +69,10 @@
             </div>
             <div class="location-container">
                 <form action="/" method="post">
+                    <!-- <div class="radios">
+                      <input type="radio" name="metric" value="F" id="f">
+                      <label for="celcius">°F</label><br>
+                    </div> -->
                     <input class="inputLocation" type="text" name="location" placeholder="Enter your city" required>
                     <button class="location-button" type="submit" name="submit"> Change Location </button>
                 </form>

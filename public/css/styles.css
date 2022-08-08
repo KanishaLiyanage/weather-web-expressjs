@@ -206,6 +206,9 @@ body {
 
 .location-container {
 	padding: 25px 35px;
+	/* padding-left: 35px;
+	padding-top: 10px;
+	margin-bottom: 10px; */
 	display: flex;
 }
 
@@ -246,3 +249,8 @@ body {
 	width: auto;
 	margin-right: 5px;
 }
+
+/* .radios{
+	display: flex;
+	margin-bottom: 10px;
+} */

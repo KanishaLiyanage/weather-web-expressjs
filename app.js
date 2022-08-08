@@ -3,7 +3,8 @@ const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const https = require("https");
 const date = require(__dirname + "/utils/date.js");
-const port = 3000;
+
+const port = process.env.PORT || 3000;
 
 const app = express();
 
@@ -29,7 +30,53 @@ app.get("/", function (req, res) {
 
             const weatherData = JSON.parse(data);
             const temp = weatherData.main.temp;
-            const desc = weatherData.weather[0].main;
+            const desc = weatherData.weather[0].description;
+            const wind = weatherData.wind.speed;
+            const precipitation = weatherData.main.feels_like;
+            const humidity = weatherData.main.humidity;
+            const cityName = weatherData.name;
+            const country = weatherData.sys.country;
+
+            res.render("home",
+                {
+                    kindOfDay: day,
+                    Date: today,
+                    temperature: temp,
+                    description: desc,
+                    PRECIPITATION: precipitation,
+                    HUMIDITY: humidity,
+                    WIND: wind,
+                    City: cityName,
+                    Country: country
+                }
+            );
+
+        });
+
+    });
+
+});
+
+app.get("/city", function (req, res) {
+
+    const day = date.getDay();
+    const today = date.getDate();
+
+    const city = findCity;
+    console.log("Post: " + city);
+    const appID = "5f39ac098bfb1d20edb29bbc65746da8";
+    const units = "metric";
+    const url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + appID + "&units=" +units;
+
+    https.get(url, function (response) {
+
+        console.log(response.statusCode);
+
+        response.on("data", function (data) {
+
+            const weatherData = JSON.parse(data);
+            const temp = weatherData.main.temp;
+            const desc = weatherData.weather[0].description;
             const wind = weatherData.wind.speed;
             const precipitation = weatherData.main.feels_like;
             const humidity = weatherData.main.humidity;
@@ -59,52 +106,62 @@ app.get("/", function (req, res) {
 app.post("/", function(req, res){
 
     findCity = req.body.location;
+    // metricValue = req.body.metric;
     console.log(findCity);
+    // console.log(metricValue);
 
-    const day = date.getDay();
-    const today = date.getDate();
-
-    const appID = "5f39ac098bfb1d20edb29bbc65746da8";
-    const units = "metric";
-    const url = "https://api.openweathermap.org/data/2.5/weather?q=" + findCity + "&appid=" + appID + "&units=" +units;
-
-    https.get(url, function (response) {
-
-        console.log(response.statusCode);
-
-        response.on("data", function (data) {
-
-            const weatherData = JSON.parse(data);
-            const temp = weatherData.main.temp;
-            const desc = weatherData.weather[0].main;
-            const wind = weatherData.wind.speed;
-            const precipitation = weatherData.main.feels_like;
-            const humidity = weatherData.main.humidity;
-            const cityName = weatherData.name;
-            const country = weatherData.sys.country;
-
-            res.render("home",
-                {
-                    kindOfDay: day,
-                    Date: today,
-                    temperature: temp,
-                    description: desc,
-                    PRECIPITATION: precipitation,
-                    HUMIDITY: humidity,
-                    WIND: wind,
-                    City: cityName,
-                    Country: country
-                }
-            );
-
-        });
-
-    });
-
-    //res.redirect("/");
+    res.redirect("/city");
 
 });
 
+// app.post("/", function(req, res){
+
+//     findCity = req.body.location;
+//     console.log(findCity);
+
+//     const day = date.getDay();
+//     const today = date.getDate();
+
+//     const appID = "5f39ac098bfb1d20edb29bbc65746da8";
+//     const units = "metric";
+//     const url = "https://api.openweathermap.org/data/2.5/weather?q=" + findCity + "&appid=" + appID + "&units=" +units;
+
+//     https.get(url, function (response) {
+
+//         console.log(response.statusCode);
+
+//         response.on("data", function (data) {
+
+//             const weatherData = JSON.parse(data);
+//             const temp = weatherData.main.temp;
+//             const desc = weatherData.weather[0].description;
+//             const wind = weatherData.wind.speed;
+//             const precipitation = weatherData.main.feels_like;
+//             const humidity = weatherData.main.humidity;
+//             const cityName = weatherData.name;
+//             const country = weatherData.sys.country;
+
+//             res.render("home",
+//                 {
+//                     kindOfDay: day,
+//                     Date: today,
+//                     temperature: temp,
+//                     description: desc,
+//                     PRECIPITATION: precipitation,
+//                     HUMIDITY: humidity,
+//                     WIND: wind,
+//                     City: cityName,
+//                     Country: country
+//                 }
+//             );
+
+//         });
+
+//     });
+
+//     //res.redirect("/");
+
+// });
 
 
 app.listen(port, function () {
