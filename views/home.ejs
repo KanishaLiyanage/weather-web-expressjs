@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,43 +8,72 @@
     <link rel="stylesheet" href="css/styles.css">
     <title>Home Page</title>
 </head>
+
 <body>
     <div class="container">
         <div class="weather-side">
             <div class="weather-gradient"></div>
             <div class="date-container">
-                <h2 class="date-dayname"> <%= kindOfDay %> </h2><span class="date-day"> <%= Date %> </span><i class="location-icon" data-feather="map-pin"></i><span class="location">Paris, FR</span>
+                <h2 class="date-dayname">
+                    <%= kindOfDay %>
+                </h2><span class="date-day">
+                    <%= Date %>
+                </span><i class="location-icon" data-feather="map-pin"></i><span class="location"><%= City %>, <%= Country %></span>
             </div>
             <div class="weather-container"><i class="weather-icon" data-feather="sun"></i>
-                <h1 class="weather-temp"> <%= temperature %>°F </h1>
-                <h3 class="weather-desc"> <%= description %> </h3>
+                <h1 class="weather-temp">
+                    <%= temperature %> °C
+                </h1>
+                <h3 class="weather-desc">
+                    <%= description %>
+                </h3>
             </div>
         </div>
         <div class="info-side">
             <div class="today-info-container">
                 <div class="today-info">
-                    <div class="precipitation"> <span class="title">PRECIPITATION</span><span class="value"> <%= PRECIPITATION %> %</span>
+                    <div class="precipitation"> <span class="title">PRECIPITATION</span><span class="value">
+                            <%= PRECIPITATION %> %
+                        </span>
                         <div class="clear"></div>
                     </div>
-                    <div class="humidity"> <span class="title">HUMIDITY</span><span class="value"> <%= HUMIDITY %> %</span>
+                    <div class="humidity"> <span class="title">HUMIDITY</span><span class="value">
+                            <%= HUMIDITY %> %
+                        </span>
                         <div class="clear"></div>
                     </div>
-                    <div class="wind"> <span class="title">WIND</span><span class="value"> <%= WIND %> km/h</span>
+                    <div class="wind"> <span class="title">WIND</span><span class="value">
+                            <%= WIND %> km/h
+                        </span>
                         <div class="clear"></div>
                     </div>
                 </div>
             </div>
             <div class="week-container">
                 <ul class="week-list">
-                    <li class="active"><i class="day-icon" data-feather="sun"></i><span class="day-name">Tue</span><span class="day-temp">29°C</span></li>
-                    <li><i class="day-icon" data-feather="cloud"></i><span class="day-name">Wed</span><span class="day-temp">21°C</span></li>
-                    <li><i class="day-icon" data-feather="cloud-snow"></i><span class="day-name">Thu</span><span class="day-temp">08°C</span></li>
-                    <li><i class="day-icon" data-feather="cloud-rain"></i><span class="day-name">Fry</span><span class="day-temp">19°C</span></li>
+                    <li class="active"><i class="day-icon" data-feather="sun"></i><span class="day-name">
+                            <%= kindOfDay %>
+                        </span><span class="day-temp">
+                            <%= temperature %> °C
+                        </span></li>
+                    <li><i class="day-icon" data-feather="cloud"></i><span class="day-name">Wed</span><span
+                            class="day-temp">21°C</span></li>
+                    <li><i class="day-icon" data-feather="cloud-snow"></i><span class="day-name">Thu</span><span
+                            class="day-temp">08°C</span></li>
+                    <li><i class="day-icon" data-feather="cloud-rain"></i><span class="day-name">Fry</span><span
+                            class="day-temp">19°C</span></li>
                     <div class="clear"></div>
                 </ul>
             </div>
-            <div class="location-container"><button class="location-button"> <i data-feather="map-pin"></i><span>Change location</span></button></div>
+            <div class="location-container">
+                <form action="/" method="post">
+                    <input class="inputLocation" type="text" name="location" placeholder="Enter your city">
+                    <button class="location-button" type="submit" name="submit"> Change Location </button>
+                </form>
+            </div>
+            <!-- <div class="location-container"><button class="location-button"> <i data-feather="map-pin"></i><span>Change location</span></button></div> -->
         </div>
     </div>
 </body>
+
 </html>
