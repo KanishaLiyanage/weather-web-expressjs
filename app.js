@@ -33,7 +33,7 @@ app.get("/", function (req, res) {
             const wind = weatherData.wind.speed;
             const precipitation = weatherData.main.feels_like;
             const humidity = weatherData.main.humidity;
-            // const cityName = weatherData.name;
+            const cityName = weatherData.name;
             const country = weatherData.sys.country;
 
             res.render("home",
@@ -45,7 +45,7 @@ app.get("/", function (req, res) {
                     PRECIPITATION: precipitation,
                     HUMIDITY: humidity,
                     WIND: wind,
-                    City: city,
+                    City: cityName,
                     Country: country
                 }
             );
@@ -58,9 +58,50 @@ app.get("/", function (req, res) {
 
 app.post("/", function(req, res){
 
-    console.log(req.body.location);
+    findCity = req.body.location;
+    console.log(findCity);
 
-    res.redirect("/");
+    const day = date.getDay();
+    const today = date.getDate();
+
+    const appID = "5f39ac098bfb1d20edb29bbc65746da8";
+    const units = "metric";
+    const url = "https://api.openweathermap.org/data/2.5/weather?q=" + findCity + "&appid=" + appID + "&units=" +units;
+
+    https.get(url, function (response) {
+
+        console.log(response.statusCode);
+
+        response.on("data", function (data) {
+
+            const weatherData = JSON.parse(data);
+            const temp = weatherData.main.temp;
+            const desc = weatherData.weather[0].main;
+            const wind = weatherData.wind.speed;
+            const precipitation = weatherData.main.feels_like;
+            const humidity = weatherData.main.humidity;
+            const cityName = weatherData.name;
+            const country = weatherData.sys.country;
+
+            res.render("home",
+                {
+                    kindOfDay: day,
+                    Date: today,
+                    temperature: temp,
+                    description: desc,
+                    PRECIPITATION: precipitation,
+                    HUMIDITY: humidity,
+                    WIND: wind,
+                    City: cityName,
+                    Country: country
+                }
+            );
+
+        });
+
+    });
+
+    //res.redirect("/");
 
 });
 
