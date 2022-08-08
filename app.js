@@ -24,7 +24,7 @@ app.get("/", function (req, res) {
 
     https.get(url, function (response) {
 
-        console.log(response.statusCode);
+        console.log("Status Code: " + response.statusCode);
 
         response.on("data", function (data) {
 
@@ -70,7 +70,7 @@ app.get("/city", function (req, res) {
 
     https.get(url, function (response) {
 
-        console.log(response.statusCode);
+        console.log("Status Code: " + response.statusCode);
 
         response.on("data", function (data) {
 
